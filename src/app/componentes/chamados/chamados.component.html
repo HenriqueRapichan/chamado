@@ -1,0 +1,113 @@
+<div class="container mt-4">
+  <h2>Lista de Chamados</h2>
+  <button class="btn btn-success mb-2" (click)="openAdicionarModal(adicionarModal)">Adicionar Chamado</button>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Descrição</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let chamado of chamados; let i = index">
+            <td>{{ chamado.id }}</td>
+            <td>{{ chamado.titulo }}</td>
+            <td>{{ chamado.descricao }}</td>
+            <td>
+              <button class="btn btn-primary btn-sm" (click)="openEditarModal(editarModal, chamado, i)">Editar</button>
+              <button class="btn btn-danger btn-sm" (click)="openExcluirModal(excluirModal, i)">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<!-- Modal de Adição -->
+<ng-template #adicionarModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Adicionar Chamado</h5>
+    <button type="button" class="close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Formulário de adição aqui -->
+        <div class="form-group">
+          <label for="tituloAdicao">Título:</label>
+          <input id="tituloAdicao" [(ngModel)]="novoChamado.titulo" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="descricaoAdicao">Descrição:</label>
+          <textarea id="descricaoAdicao" [(ngModel)]="novoChamado.descricao" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="imagemAdicao">Imagem:</label>
+          <input id="imagemAdicao" type="file" (change)="onImagemSelecionada($event)" class="form-control-file" accept="image/*" />
+          <img *ngIf="imagemAdicaoPreview" [src]="imagemAdicaoPreview" alt="Prévia da Imagem" class="img-thumbnail mt-2" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fechar</button>
+    <button type="button" class="btn btn-primary" (click)="adicionarChamado(); modal.close('Add click')">Adicionar</button>
+  </div>
+</ng-template>
+
+<!-- Modal de Edição -->
+<ng-template #editarModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Editar Chamado</h5>
+    <button type="button" class="close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Formulário de edição aqui -->
+        <div class="form-group">
+          <label for="tituloEdicao">Título:</label>
+          <input id="tituloEdicao" [(ngModel)]="editandoChamado.titulo" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="descricaoEdicao">Descrição:</label>
+          <textarea id="descricaoEdicao" [(ngModel)]="editandoChamado.descricao" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="imagemEdicao">Imagem:</label>
+          <input id="imagemEdicao" type="file" (change)="onImagemSelecionada($event)" class="form-control-file" accept="image/*" />
+          <img *ngIf="imagemEdicaoPreview" [src]="imagemEdicaoPreview" alt="Prévia da Imagem" class="img-thumbnail mt-2" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Fechar</button>
+    <button type="button" class="btn btn-primary" (click)="salvarEdicao(); modal.close('Save click')">Salvar</button>
+  </div>
+</ng-template>
+
+  <!-- Modal de Exclusão -->
+  <ng-template #excluirModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Excluir Chamado</h5>
+      <button type="button" class="close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Tem certeza de que deseja excluir este chamado?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cancel click')">Cancelar</button>
+      <button type="button" class="btn btn-danger" (click)="excluirChamado(); modal.close('Delete click')">Excluir</button>
+    </div>
+  </ng-template>
+</div>
