@@ -1,0 +1,255 @@
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-chamado-tab" data-bs-toggle="tab" data-bs-target="#nav-chamado"
+            type="button" role="tab" aria-controls="nav-chamado" aria-selected="true">Chamados</button>
+        <button class="nav-link" id="nav-demanda-tab" data-bs-toggle="tab" data-bs-target="#nav-demanda" type="button"
+            role="tab" aria-controls="nav-demanda" aria-selected="false">Demandas</button>
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-chamado" role="tabpanel" aria-labelledby="nav-chamado-tab">
+        <div class="borda-grid espacamento">
+            <div class="row g-0">
+                <div class="col-5">
+                    <label for="filtroUsuario"><b>Usuário:</b></label>
+                    <div>
+                        <select name="filtroUsuario" id="filtroUsuario" class="form-select form-select-sm mb-1">
+                            <option value="">Todos</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-2"></div>
+                <div class="col-5">
+                    <label for="filtroSituacao"><b>Situação:</b></label>
+                    <div>
+                        <select name="filtroSituacao" id="filtroSituacao" class="form-select form-select-sm mb-1">
+                            <option value="">Todos</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="borda-grid table-responsive tamanho-grid">
+            <table class="table table-sm table-bordered">
+                <thead>
+                    <tr class="table-primary">
+                        <th></th>
+                        <th>
+                            <label>N° Chamado</label>
+                            <input class="form-control form-control-sm mb-1">
+                        </th>
+                        <th>
+                            <label>Cód.Sistema</label>
+                            <input class="form-control form-control-sm mb-1">
+                        </th>
+                        <th>
+                            <label>Cód.Modulo</label>
+                            <input class="form-control form-control-sm mb-1">
+                        </th>
+                        <th>
+                            <label>Cód.Cliente</label>
+                            <input class="form-control form-control-sm mb-1">
+                        </th>
+                        <th>
+                            <label>Titulo</label>
+                            <input class="form-control form-control-sm mb-1">
+                        </th>
+                        <th>
+                            <label>Status</label>
+                            <input class="form-control form-control-sm mb-1">
+                        </th>
+                        <th>
+                            <label>Prevista</label>
+                            <input class="form-control form-control-sm mb-1">
+                        </th>
+                        <th>
+                            <label>Utilizadas</label>
+                            <input class="form-control form-control-sm mb-1">
+                        </th>
+                        <th>
+                            <label>Avaliação</label>
+                            <input class="form-control form-control-sm mb-1">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <button class="btn btn-primary btn-sm" title="Visualizar"><i class="bi bi-eye"></i></button>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row g-0 borda-grid espacamento opcoes-chamado">
+            <div class="col-5">
+                <ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false"
+                    [boundaryLinks]="true" size="sm">
+                </ngb-pagination>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-5 btn-novo-chamado">
+                <button class="btn btn-sm btn-success" (click)="abrirModalAdicionarChamado()"><i
+                        class="bi bi-plus-lg"></i> Novo chamado</button>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="nav-demanda" role="tabpanel" aria-labelledby="nav-demanda-tab">
+        <div class="borda-grid espacamento">
+            <div class="row g-0">
+                <div class="col-5">
+                    <label for="filtroUsuario"><b>Usuário:</b></label>
+                    <div>
+                        <select name="filtroUsuario" id="filtroUsuario" class="form-select form-select-sm mb-1">
+                            <option value="">Todos</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-2"></div>
+                <div class="col-5">
+                    <label for="filtroSituacao"><b>Situação:</b></label>
+                    <div>
+                        <select name="filtroSituacao" id="filtroSituacao" class="form-select form-select-sm mb-1">
+                            <option value="">Todos</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="borda-grid table-responsive tamanho-grid">
+            <table class="table table-sm table-bordered">
+                <thead>
+                    <tr class="table-primary">
+                        <th></th>
+                        <th>
+                            <label>N° Chamado</label>
+                            <input class="form-control form-control-sm mb-1">
+                        </th>
+                        <th>
+                            <label>Cód.Sistema</label>
+                            <input class="form-control form-control-sm mb-1">
+                        </th>
+                        <th>
+                            <label>Cód.Modulo</label>
+                            <input class="form-control form-control-sm mb-1">
+                        </th>
+                        <th>
+                            <label>Cód.Cliente</label>
+                            <input class="form-control form-control-sm mb-1">
+                        </th>
+                        <th>
+                            <label>Titulo</label>
+                            <input class="form-control form-control-sm mb-1">
+                        </th>
+                        <th>
+                            <label>Status</label>
+                            <input class="form-control form-control-sm mb-1">
+                        </th>
+                        <th>
+                            <label>Prevista</label>
+                            <input class="form-control form-control-sm mb-1">
+                        </th>
+                        <th>
+                            <label>Utilizadas</label>
+                            <input class="form-control form-control-sm mb-1">
+                        </th>
+                        <th>
+                            <label>Avaliação</label>
+                            <input class="form-control form-control-sm mb-1">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <button class="btn btn-primary btn-sm" title="Visualizar"><i class="bi bi-eye"></i></button>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row g-0 borda-grid espacamento opcoes-chamado">
+            <div class="col-5">
+                <ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false"
+                    [boundaryLinks]="true" size="sm">
+                </ngb-pagination>
+            </div>
+            <div class="col-2"></div>
+            <!-- <div class="col-5 btn-novo-chamado">
+                <button class="btn btn-sm btn-success"><i class="bi bi-plus-lg"></i> Novo chamado</button>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<ng-template #adicionarChamado let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Novo Chamado</h5>
+        <button type="button" class="btn-close" aria-label="Close"
+            (click)="resetNovoChamado(); modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row g-0">
+            <div class="row g-0">
+                <label for="cliente">Cliente</label>
+                <div class="row g-0">
+                    <div class="col-3">
+                        <input type="text" class="form-control form-control-sm">
+                    </div>
+                    <div class="col-1"></div>
+                    <div class="col-8">
+                        <input type="text" class="form-control form-control-sm">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label for="cliente">Titulo:</label>
+                <input type="text" class="form-control form-control-sm">
+            </div>
+            <div>
+                <label for="descricao">Descrição:</label>
+                <textarea class="form-control" name="descricao" id="descricao" cols="30" rows="5"></textarea>
+            </div>
+            <div>
+                <div (drop)="manipularDrop($event)" (dragover)="manipularArrastarSobre($event)" class="drop-area">
+                    <label for="selecao-arquivo">
+                        Arraste e solte os arquivos aqui ou clique para selecionar 
+                        <span>
+                            <i class="bi bi-box-arrow-in-down"></i>
+                        </span>
+                    </label>
+                    <input type="file" id="selecao-arquivo" (change)="selecionarArquivos($event)" multiple />
+                </div>
+
+                <div *ngFor="let arquivo of arquivosSelecionados">
+                    <p>{{ arquivo.name }} ({{ formatBytes(arquivo.size) }})</p>
+                    <img class="img-fluid" *ngIf="isImagem(arquivo.type)" [src]="getBase64Preview(arquivo)"
+                        alt="Preview" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-success" (click)="salvarChamado()">Salvar</button>
+        <button type="button" class="btn btn-sm btn-danger"
+            (click)="resetNovoChamado(); modal.close('Close click')">Sair</button>
+    </div>
+</ng-template>ç

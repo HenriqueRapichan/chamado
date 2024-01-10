@@ -1,0 +1,17 @@
+<div [hidden]="carregando" class="carregando">
+    <div class="spinner-border" role="status"></div>
+    <span style="margin-left: 10px;">Carregando...</span>
+</div>
+
+<div [hidden]="!carregando" class="grid-login">
+    <form [formGroup]="usuarioForm" (ngSubmit)="login()" class="d-flex flex-column mt-1">
+        <label for="usuario">Usuario: </label>
+        <input id="usuario" type="text" autocomplete="off" class="form-control form-control-sm mb-1" formControlName="usuario">
+        <label for="senha">Senha: </label>
+        <input id="senha" type="password" autocomplete="off" class="form-control form-control-sm mb-1" formControlName="senha">
+        <div class="espacamento">
+            <a href="">Esqueci a senha</a>
+        </div>
+        <button type="submit" class="btn btn-primary">Entrar</button>
+    </form>
+</div>

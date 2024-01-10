@@ -1,0 +1,56 @@
+
+.nav{
+    background-color: rgba($color: #002c4f, $alpha: 0.8);
+    border-radius: 5px 5px 0 0;
+}
+.nav-link{
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 5px 5px 0 5px;
+    border-radius: 5px 5px 0 0;
+}
+.espacamento{
+    margin: 1% auto;
+}
+
+.tamanho-grid{
+    height:calc(75vh - 70px);
+}
+
+.opcoes-chamado{
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.btn-novo-chamado{
+    text-align: end;
+}
+
+.modal-body label{
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.drop-area input[type='file'] {
+    display: none
+}
+
+.drop-area label {
+        background-color: rgba($color: #dadada, $alpha: 0.4);
+        width: 100%;
+        padding: 2%;
+        border-radius: 5px;
+        border: 1px solid #dadadab2;
+        margin-top: 10px;
+        cursor: pointer;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.drop-area label i{
+    font-size: 25px;
+}

@@ -1,14 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ChamadosComponent } from './componentes/chamados/chamados.component';
+import { LoginComponent } from './modulos/login/login.component';
+import { HomeComponent } from './modulos/home/home.component';
+import { ChamadosComponent } from './modulos/chamados/chamados.component';
 
 
 const routes: Routes = [
-  { path:'', component: ChamadosComponent }
+  { path:'login', component: LoginComponent },
+  { path:'', component: ChamadosComponent },
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { enableTracing: false, scrollPositionRestoration: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
