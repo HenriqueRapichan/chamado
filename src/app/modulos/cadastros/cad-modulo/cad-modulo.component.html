@@ -4,7 +4,7 @@
             <thead>
                 <tr class="table-primary">
                     <th class="centralizar-btn-adicionar">
-                        <button class="btn btn-sm btn-success"><i
+                        <button class="btn btn-sm btn-success" (click)="abrirModalAdicionar()"><i
                         class="bi bi-plus-lg"></i>Adicionar</button>
                     </th>
                     <th>
@@ -25,16 +25,108 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody *ngFor="let modulo of listaModulos, let i index">
                 <tr>
                     <td>
-                        <button class="btn btn-primary btn-sm" title="Visualizar"></button>
+                        <button class="btn btn-primary btn-sm" title="Editar" (click)="abrirModalEditar(modulo)">Editar</button>
+                        <button class="btn btn-danger btn-sm" title="Excluir" (click)="abrirModalExclusao(modulo)">Excluir</button>
                     </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{modulo.codSistema}}</td>
+                    <td>{{modulo.codModulo}}</td>
+                    <td>{{modulo.nomeModulo}}</td>
+                    <td>{{modulo.situacao}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+
+
+
+<ng-template #adicionar let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Adicionar Modulo</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-boby">
+        <form *ngIf="moduloForm" [formGroup]="moduloForm" (ngSubmit)="onSubmit('adicionar')">
+            <label for="codSistema">Sistema:</label>
+            <select id="codSistema" formControlName="codSistema" class="form-select form-select-sm mb-1">
+                <option *ngFor="let x of listaSistema" value="{{x.codSistema}}">{{x.nomeSistema}}</option>
+                <option value="" selected>Selecione</option>
+            </select>
+            <div *ngIf="moduloForm.get('codSistema')?.hasError('required')">
+                Sistema é obrigatório.
+            </div>
+            <label for="nomeModulo">Nome do Cliente:</label>
+            <input type="text" id="nomeModulo" formControlName="nomeModulo" class="form-control form-control-sm mb-1">
+            <div *ngIf="moduloForm.get('nomeModulo')?.hasError('required')">
+                Nome do modulo é obrigatório.
+            </div>
+
+            <label for="situacao">Situação:</label>
+            <select id="situacao" formControlName="situacao" class="form-select form-select-sm mb-1">
+                <option value="A">ATIVO</option>
+                <option value="I">INATIVO</option>
+            </select>
+            <div *ngIf="moduloForm.get('situacao')?.hasError('required')">
+                Situação é obrigatória.
+            </div>
+            <button type="submit" [disabled]="!moduloForm || moduloForm.invalid">Cadastrar Modulo</button>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #editar let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Editar Modulo</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-boby">
+        <form *ngIf="moduloForm" [formGroup]="moduloForm" (ngSubmit)="onSubmit('editar')">
+            
+            <label for="codSistema">Sistema:</label>
+            <select id="codSistema" formControlName="codSistema" class="form-select form-select-sm mb-1">
+                <option *ngFor="let x of listaSistema" value="{{x.codSistema}}">{{x.nomeSistema}}</option>
+                <option value="" selected>Selecione</option>
+            </select>
+            <div *ngIf="moduloForm.get('codSistema')?.hasError('required')">
+                Sistema é obrigatório.
+            </div>
+
+            <label for="nomeModulo">Razão Social:</label>
+            <input type="text" id="nomeModulo" formControlName="nomeModulo" class="form-control form-control-sm mb-1">
+            <div *ngIf="moduloForm.get('nomeModulo')?.hasError('required')">
+                Nome do modulo é obrigatório.
+            </div>
+
+            <label for="situacao">Situação:</label>
+            <select id="situacao" formControlName="situacao" class="form-select form-select-sm mb-1">
+                <option value="A">ATIVO</option>
+                <option value="I">INATIVO</option>
+            </select>
+            <div *ngIf="moduloForm.get('situacao')?.hasError('required')">
+                Situação é obrigatória.
+            </div>
+            <button type="submit" [disabled]="!moduloForm || moduloForm.invalid">Editar Cliente</button>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #excluir let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Excluir Cliente</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-boby">
+        <div class="menssage-confirmacao">
+            <p>Deseja excluir esse registro?</p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div>
+            <button class="btn btn-danger btn-sm" title="Cancelar" (click)="modal.dismiss()">Cancelar</button>
+            <button class="btn btn-primary btn-sm" title="Confirmar" (click)="removerCadModulo()">Confirmar</button>
+        </div>
+    </div>
+</ng-template>

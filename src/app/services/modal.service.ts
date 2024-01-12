@@ -64,4 +64,8 @@ export class ModalService {
     this.modal.open(modal, this.ngbModalOptionsTelaCheia);
   }
 
+  fecharModal(){
+    this.modal.dismissAll();
+  }
+
 }

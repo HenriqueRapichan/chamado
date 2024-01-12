@@ -23,9 +23,9 @@
             </thead>
             <tbody *ngFor="let cliente of listaCliente; let i index">
                 <tr>
-                    <td class="centralizar-btns">
-                        <button class="btn btn-primary btn-sm" title="Editar">Editar</button>
-                        <button class="btn btn-danger btn-sm" title="Excluir">Excluir</button>
+                    <td class="centralizar">
+                        <button class="btn btn-primary btn-sm" title="Editar" (click)="abrirModalEditar(cliente)">Editar</button>
+                        <button class="btn btn-danger btn-sm" title="Excluir" (click)="abrirModalExclusao(cliente)">Excluir</button>
                     </td>
                     <td class="direita">{{cliente.codCliente}}</td>
                     <td>{{cliente.nomeCliente}}</td>
@@ -42,7 +42,7 @@
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-boby">
-        <form *ngIf="clienteForm" [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
+        <form *ngIf="clienteForm" [formGroup]="clienteForm" (ngSubmit)="onSubmit('adicionar')">
             <label for="nomeCliente">Nome do Cliente:</label>
             <input type="text" id="nomeCliente" formControlName="nomeCliente" class="form-control form-control-sm mb-1">
             <div *ngIf="clienteForm.get('nomeCliente')?.hasError('required')">
@@ -59,5 +59,49 @@
             </div>
             <button type="submit" [disabled]="!clienteForm || clienteForm.invalid">Cadastrar Cliente</button>
         </form>
+    </div>
+</ng-template>
+
+<ng-template #editar let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Editar Cliente</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-boby">
+        <form *ngIf="clienteForm" [formGroup]="clienteForm" (ngSubmit)="onSubmit('editar')">
+            <label for="nomeCliente">Razão Social:</label>
+            <input type="text" id="nomeCliente" formControlName="nomeCliente" class="form-control form-control-sm mb-1">
+            <div *ngIf="clienteForm.get('nomeCliente')?.hasError('required')">
+                Nome do Razão Social é obrigatório.
+            </div>
+
+            <label for="situacao">Situação:</label>
+            <select id="situacao" formControlName="situacao" class="form-select form-select-sm mb-1">
+                <option value="A">ATIVO</option>
+                <option value="I">INATIVO</option>
+            </select>
+            <div *ngIf="clienteForm.get('situacao')?.hasError('required')">
+                Situação é obrigatória.
+            </div>
+            <button type="submit" [disabled]="!clienteForm || clienteForm.invalid">Editar Cliente</button>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #excluir let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Excluir Cliente</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-boby">
+        <div class="menssage-confirmacao">
+            <p>Deseja excluir esse registro?</p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div>
+            <button class="btn btn-danger btn-sm" title="Cancelar" (click)="modal.dismiss()">Cancelar</button>
+            <button class="btn btn-primary btn-sm" title="Confirmar" (click)="removerCadCliente()">Confirmar</button>
+        </div>
     </div>
 </ng-template>

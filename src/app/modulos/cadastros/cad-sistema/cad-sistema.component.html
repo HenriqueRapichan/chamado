@@ -23,7 +23,7 @@
             </thead>
             <tbody *ngFor="let sistema of listaSistema; let i index">
                 <tr>
-                    <td class="centralizar-btns">
+                    <td class="centralizar">
                         <button class="btn btn-primary btn-sm" (click)="abrirModalEditar(sistema)" title="Editar">Editar</button>
                         <button class="btn btn-danger btn-sm" (click)="abrirModalExclusao(sistema)" title="Editar">Excluir</button>
                     </td>
@@ -94,8 +94,14 @@
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-boby">
-        <div>
+        <div class="menssage-confirmacao">
             <p>Deseja excluir esse registro?</p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div>
+            <button class="btn btn-danger btn-sm" title="Cancelar" (click)="modal.dismiss()">Cancelar</button>
+            <button class="btn btn-primary btn-sm" title="Confirmar" (click)="removerCadSistema()">Confirmar</button>
         </div>
     </div>
 </ng-template>

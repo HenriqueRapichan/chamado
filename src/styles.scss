@@ -79,7 +79,13 @@ body{
     margin: 11px;
   }
 }
-.centralizar-btns{
+
+.menssage-confirmacao{
+  padding: 10%;
+  font-size: large;
+}
+
+.centralizar{
   text-align: center;
 }
 .direita{
@@ -87,4 +93,9 @@ body{
 }
 .esquerda{
   text-align: left;
+}
+.space-evelyn{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }

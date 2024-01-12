@@ -27,15 +27,25 @@ export class CadSistemaComponent {
   }
  
   ngOnInit() {
-    this.buscarCliente();
+    this.buscarSistemas();
+    this.resetForm();   
+  }
 
+  resetForm(){
     this.sistemaForm = this.fb.group({
       nomeSistema: ['', [Validators.required]],
       situacao: ['A', [Validators.required]]  // Defina 'ATIVO' como a opção padrão
     });
   }
 
+  reset(){
+    this.sistemaSelecionado = {};
+    this.buscarSistemas();
+    this.modal.fecharModal();
+  }
+
   abrirModalAdicionar(){
+    this.resetForm(); 
     this.modal.abrirModalMd(this.adicionar);
   }
 
@@ -53,7 +63,7 @@ export class CadSistemaComponent {
     this.modal.abrirModalSm(this.excluir);
   }
 
-  buscarCliente() {
+  buscarSistemas() {
     let rotas: string = "/buscarSistemas";
      this.requisicaoService.post(rotas, {}).subscribe(
       (retorno: any) => {
@@ -76,7 +86,8 @@ export class CadSistemaComponent {
       let rotas: string = "/inserirSistema";
       this.requisicaoService.post(rotas, param).subscribe(
        (retorno: any) => {
-        alert(retorno);
+        console.log(retorno);
+        this.reset();
        },
      )
     }
@@ -91,6 +102,7 @@ export class CadSistemaComponent {
       this.requisicaoService.post(rotas, param).subscribe(
        (retorno: any) => {
         console.log(retorno.status, retorno.msg);
+        this.reset();
        },
      )
     }
@@ -100,29 +112,16 @@ export class CadSistemaComponent {
     }
   }
 
-  alterarSistemas() {
-    let rotas: string = "/alterarSistema";
-    let param = {
-      nomeSistema:'',
-      situacao: '',
-    }
-     this.requisicaoService.post(rotas, param).subscribe(
-      (retorno: any) => {
-        this.listaSistema = [];
-        this.listaSistema = retorno;
-      },
-    )
-  }
-
   removerCadSistema() {
     let rotas: string = "/removerCadSistema";
     let param = {
-      codigoSistema:'',
+      codSistema: this.sistemaSelecionado.codSistema,
     }
+    console.log(param, 'removerCadastro');
      this.requisicaoService.post(rotas, param).subscribe(
       (retorno: any) => {
-        this.listaSistema = [];
-        this.listaSistema = retorno;
+        console.log(retorno.status, retorno.msg);
+        this.reset();
       },
     )
   }
