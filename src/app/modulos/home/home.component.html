@@ -1,61 +1,33 @@
-<div class="sidebar" [ngClass]="{ 'expanded': isExpanded }">
-    <div class="header">
-      <h1 class="title">
-        Grupo FLJ
-      </h1>
-      <div class="toggle" (click)="handleSidebarToggle()">
-        <span class="chevron"></span>
-      </div>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" (click)="highlightNavItem($event)" routerLink="/home" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="highlightNavItem($event)" routerLink="/home/chamados" href="#">Chamados</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" (click)="highlightNavItem($event)" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Cadastros
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/home/cliente" href="#">Clientes</a></li>
+            <li><a class="dropdown-item" routerLink="/home/modulo" href="#">Modulos</a></li>
+            <li><a class="dropdown-item" routerLink="/home/parceiro" href="#">Parceiros</a></li>
+            <li><a class="dropdown-item" routerLink="/home/sistema" href="#">Sistemas</a></li>
+            <li><a class="dropdown-item" routerLink="/home/status" href="#">Status</a></li>
+            <li><a class="dropdown-item" routerLink="/home/detalhamento" href="#">Tipo detalhamento</a></li>
+            <li><a class="dropdown-item" routerLink="/home/usuario" href="#">Usuário</a></li>
+          </ul>
+        </li>
+      </ul>
     </div>
-    <div class="content">
-      <div class="link">
-        <div class="content" [routerLink]="['/home']" [routerLinkActive]="'active'">
-           <div class="icon">
-            <i class="bi bi-house"></i>
-           </div>
-          <div class="title">Home</div>
-        </div>
-      </div>
-      <div class="link">
-        <div class="content" [routerLink]="['/chamados']" [routerLinkActive]="'active'">
-          <div class="icon">
-            <i class="bi bi-list-columns"></i>
-          </div>
-          <div class="title">Chamados</div>
-        </div>
-      </div>
-      <!-- <div class="link with-children">
-        <div class="content" [routerLink]="['/configuration']" [routerLinkActive]="'active'">
-           <div class="icon"></div>
-          <div class="title">Configuration</div>
-        </div>
-        <div class="children">
-          <div class="link">
-            <div class="content" [routerLink]="['/configuration']" [queryParams]="{ 'child': '1' }"
-              [routerLinkActive]="'active'">
-              
-               <div class="icon"></div>
-              <div class="title">child 1</div>
-            </div>
-          </div>
-          <div class="link">
-            <div class="content" [routerLink]="['/configuration']" [queryParams]="{ 'child': '2' }"
-              [routerLinkActive]="'active'">
-               
-               <div class="icon"></div>
-              <div class="title">child 2</div>
-            </div>
-          </div>
-          <div class="link">
-            <div class="content" [routerLink]="['/configuration']" [queryParams]="{ 'child': '3' }"
-              [routerLinkActive]="'active'">
-              <div class="icon"></div>
-              <div class="title">child 3</div>
-            </div>
-          </div>
-        </div>
-      </div>  -->
-      
-    </div>
-    <div class="footer"></div>
   </div>
+</nav>
+<router-outlet></router-outlet>

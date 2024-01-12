@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-chamados',
@@ -8,25 +9,31 @@ import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ChamadosComponent implements OnInit {
   @ViewChild('adicionarChamado') adicionarChamado: any;
-
-  public ngbModalOptionsLg: NgbModalOptions = {
-    backdrop: 'static',
-    keyboard: false,
-    size: 'lg',
-    animation: true,
-  };
-
+  @ViewChild('abrirPreviewImg') abrirPreviewImg: any;
+  @ViewChild('visualizaChamado') visualizaChamado: any;
+  
   public page: number = 1;
 
   public arquivosSelecionados: File[] = [];
   public arquivosBase64: string[] = [];
 
-  constructor(public modal: NgbModal,) {}
+  public tempPreview: any = null;
+
+  constructor(public modal: ModalService) {}
 
   ngOnInit(): void {}
 
   abrirModalAdicionarChamado(){
-    this.modal.open(this.adicionarChamado, this.ngbModalOptionsLg);
+    this.modal.abrirModalLg(this.adicionarChamado);
+  }
+
+  abrirModalPreviweImg(imgPreviwe:any){
+    this.tempPreview = imgPreviwe;
+    this.modal.abrirModalLg(this.abrirPreviewImg);
+  }
+
+  abrirModalVisualizaChamado(){
+    this.modal.abrirModalTelaCheia(this.visualizaChamado);
   }
 
   salvarChamado(){
@@ -79,7 +86,6 @@ export class ChamadosComponent implements OnInit {
         console.error('Erro ao converter arquivo para Base64:', error);
       }
     }
-    // Agora você pode enviar os arquivos Base64 para o backend ou fazer o que for necessário
     console.log('Arquivos Base64:', this.arquivosBase64);
   }
 
@@ -101,4 +107,9 @@ export class ChamadosComponent implements OnInit {
     }
     return ''; // Adicione lógica para outros tipos de arquivo, se necessário
   }
+
+  removerImg(index: number): void {
+    this.arquivosSelecionados.splice(index, 1);
+  }
+ 
 }

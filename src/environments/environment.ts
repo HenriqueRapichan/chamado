@@ -4,11 +4,9 @@
 
 export const environment = {
   production: false,
-  // baseUrl: 'http://10.241.20.242:3333',
-  url: 'http://web.lideremvendas.com.br:3335',
-  // baseUrl: 'http://web.lideremvendas.com.br:3335',
   
-  versao: '1.0.6',
+  url: 'http://192.168.25.184:3000', 
+  versao: '1.0.0',
 };
 
 /*

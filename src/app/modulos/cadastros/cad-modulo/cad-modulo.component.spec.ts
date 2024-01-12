@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChamadosComponent } from './chamados.component';
+import { CadModuloComponent } from './cad-modulo.component';
 
-describe('ChamadosComponent', () => {
-  let component: ChamadosComponent;
-  let fixture: ComponentFixture<ChamadosComponent>;
+describe('CadModuloComponent', () => {
+  let component: CadModuloComponent;
+  let fixture: ComponentFixture<CadModuloComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ChamadosComponent]
+      declarations: [CadModuloComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ChamadosComponent);
+    fixture = TestBed.createComponent(CadModuloComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

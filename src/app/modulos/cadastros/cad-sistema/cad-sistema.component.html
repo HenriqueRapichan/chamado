@@ -1,0 +1,101 @@
+<div class="row g-0 grid-table-cadastros">
+    <div class="borda-grid table-responsive tamanho-grid-cadastro">
+        <table class="table table-sm table-bordered ">
+            <thead>
+                <tr class="table-primary">
+                    <th class="centralizar-btn-adicionar">
+                        <button class="btn btn-sm btn-success" (click)="abrirModalAdicionar()"><i
+                        class="bi bi-plus-lg"></i>Adicionar</button>
+                    </th>
+                    <th>
+                        <label>Cód.Sistema</label>
+                        <input class="form-control form-control-sm mb-1">
+                    </th>
+                    <th>
+                        <label>Nome Sistema</label>
+                        <input class="form-control form-control-sm mb-1">
+                    </th>
+                    <th>
+                        <label>Situação</label>
+                        <input class="form-control form-control-sm mb-1">
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let sistema of listaSistema; let i index">
+                <tr>
+                    <td class="centralizar-btns">
+                        <button class="btn btn-primary btn-sm" (click)="abrirModalEditar(sistema)" title="Editar">Editar</button>
+                        <button class="btn btn-danger btn-sm" (click)="abrirModalExclusao(sistema)" title="Editar">Excluir</button>
+                    </td>
+                    <td class="direita">{{sistema.codSistema}}</td>
+                    <td>{{sistema.nomeSistema}}</td>
+                    <td>{{sistema.situacao}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #adicionar let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Adicionar Sistema</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-boby">
+        <form *ngIf="sistemaForm" [formGroup]="sistemaForm" (ngSubmit)="onSubmit('adicionar')">
+            <label for="nomeSistema">Nome do Sistema:</label>
+            <input type="text" id="nomeSistema" formControlName="nomeSistema" class="form-control form-control-sm mb-1">
+            <div *ngIf="sistemaForm.get('nomeSistema')?.hasError('required')">
+                Nome do sistema é obrigatório.
+            </div>
+
+            <label for="situacao">Situação:</label>
+            <select id="situacao" formControlName="situacao" class="form-select form-select-sm mb-1">
+                <option value="A">ATIVO</option>
+                <option value="I">INATIVO</option>
+            </select>
+            <div *ngIf="sistemaForm.get('situacao')?.hasError('required')">
+                Situação é obrigatória.
+            </div>
+            <button type="submit" [disabled]="!sistemaForm || sistemaForm.invalid">Cadastrar Sistema</button>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #editar let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Editar Sistema</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-boby">
+        <form *ngIf="sistemaForm" [formGroup]="sistemaForm" (ngSubmit)="onSubmit('editar')">
+            <label for="nomeSistema">Nome do Sistema:</label>
+            <input type="text" id="nomeSistema" formControlName="nomeSistema" class="form-control form-control-sm mb-1">
+            <div *ngIf="sistemaForm.get('nomeSistema')?.hasError('required')">
+                Nome do sistema é obrigatório.
+            </div>
+
+            <label for="situacao">Situação:</label>
+            <select id="situacao" formControlName="situacao" class="form-select form-select-sm mb-1">
+                <option value="A">ATIVO</option>
+                <option value="I">INATIVO</option>
+            </select>
+            <div *ngIf="sistemaForm.get('situacao')?.hasError('required')">
+                Situação é obrigatória.
+            </div>
+            <button type="submit" [disabled]="!sistemaForm || sistemaForm.invalid">Cadastrar Sistema</button>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #excluir let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Editar Sistema</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-boby">
+        <div>
+            <p>Deseja excluir esse registro?</p>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,63 @@
+<div class="row g-0 grid-table-cadastros">
+    <div class="borda-grid table-responsive tamanho-grid-cadastro">
+        <table class="table table-sm table-bordered ">
+            <thead>
+                <tr class="table-primary">
+                    <th class="centralizar-btn-adicionar">
+                        <button class="btn btn-sm btn-success" (click)="abrirModalAdicionar()"><i
+                                class="bi bi-plus-lg"></i>Adicionar</button>
+                    </th>
+                    <th>
+                        <label>Cód.CLiente</label>
+                        <input class="form-control form-control-sm mb-1">
+                    </th>
+                    <th>
+                        <label>Nome Cliente</label>
+                        <input class="form-control form-control-sm mb-1">
+                    </th>
+                    <th>
+                        <label>Situação</label>
+                        <input class="form-control form-control-sm mb-1">
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let cliente of listaCliente; let i index">
+                <tr>
+                    <td class="centralizar-btns">
+                        <button class="btn btn-primary btn-sm" title="Editar">Editar</button>
+                        <button class="btn btn-danger btn-sm" title="Excluir">Excluir</button>
+                    </td>
+                    <td class="direita">{{cliente.codCliente}}</td>
+                    <td>{{cliente.nomeCliente}}</td>
+                    <td>{{cliente.situacao}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #adicionar let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Adicionar Cliente</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-boby">
+        <form *ngIf="clienteForm" [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
+            <label for="nomeCliente">Nome do Cliente:</label>
+            <input type="text" id="nomeCliente" formControlName="nomeCliente" class="form-control form-control-sm mb-1">
+            <div *ngIf="clienteForm.get('nomeCliente')?.hasError('required')">
+                Nome do cliente é obrigatório.
+            </div>
+
+            <label for="situacao">Situação:</label>
+            <select id="situacao" formControlName="situacao" class="form-select form-select-sm mb-1">
+                <option value="A">ATIVO</option>
+                <option value="I">INATIVO</option>
+            </select>
+            <div *ngIf="clienteForm.get('situacao')?.hasError('required')">
+                Situação é obrigatória.
+            </div>
+            <button type="submit" [disabled]="!clienteForm || clienteForm.invalid">Cadastrar Cliente</button>
+        </form>
+    </div>
+</ng-template>

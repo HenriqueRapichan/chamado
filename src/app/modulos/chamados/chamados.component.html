@@ -75,7 +75,7 @@
                 <tbody>
                     <tr>
                         <td>
-                            <button class="btn btn-primary btn-sm" title="Visualizar"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-primary btn-sm" title="Visualizar" (click)="abrirModalVisualizaChamado()"><i class="bi bi-eye"></i></button>
                         </td>
                         <td></td>
                         <td></td>
@@ -171,7 +171,7 @@
                 <tbody>
                     <tr>
                         <td>
-                            <button class="btn btn-primary btn-sm" title="Visualizar"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-primary btn-sm" title="Visualizar" (click)="abrirModalVisualizaChamado()"><i class="bi bi-eye"></i></button>
                         </td>
                         <td></td>
                         <td></td>
@@ -231,18 +231,34 @@
             <div>
                 <div (drop)="manipularDrop($event)" (dragover)="manipularArrastarSobre($event)" class="drop-area">
                     <label for="selecao-arquivo">
-                        Arraste e solte os arquivos aqui ou clique para selecionar 
+                        Arraste e solte os arquivos aqui ou clique para selecionar
                         <span>
                             <i class="bi bi-box-arrow-in-down"></i>
                         </span>
                     </label>
                     <input type="file" id="selecao-arquivo" (change)="selecionarArquivos($event)" multiple />
                 </div>
-
-                <div *ngFor="let arquivo of arquivosSelecionados">
-                    <p>{{ arquivo.name }} ({{ formatBytes(arquivo.size) }})</p>
-                    <img class="img-fluid" *ngIf="isImagem(arquivo.type)" [src]="getBase64Preview(arquivo)"
-                        alt="Preview" />
+                <div class="grid-arquivos" *ngIf="arquivosSelecionados.length > 0">
+                    <div *ngFor="let arquivo of arquivosSelecionados let i = index">
+                        <table class="table table-sm lista-arquivos">
+                                <tr>
+                                    <td><b>{{ arquivo.name }}</b></td>
+                                    <td class="tamanho-coluna-img">({{ formatBytes(arquivo.size) }})</td>
+                                    <td class="tamanho-coluna-img">
+                                        <button class="btn btn-danger btn-sm" title="Remover arquivo" (click)="removerImg(i)">
+                                            <i class="bi bi-x-lg"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm" title="Visualizar imagem"
+                                            *ngIf="isImagem(arquivo.type)" (click)="abrirModalPreviweImg(arquivo)">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <p><b>Quatidade de arquivos: {{arquivosSelecionados.length}}</b></p>
                 </div>
             </div>
         </div>
@@ -252,4 +268,30 @@
         <button type="button" class="btn btn-sm btn-danger"
             (click)="resetNovoChamado(); modal.close('Close click')">Sair</button>
     </div>
-</ng-template>ç
+</ng-template>
+
+<ng-template #abrirPreviewImg let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Imagem {{ tempPreview.name }}</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <img class="img-fluid" [src]="getBase64Preview(tempPreview)" alt="Preview" />
+    </div>
+</ng-template>
+
+
+<ng-template #visualizaChamado let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Chamado</h5>
+        <button type="button" class="btn-close" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row g-0">
+        </div>
+    </div>
+    <div class="modal-footer">
+       <button class="btn btn-sm btn-primary">Interagir</button>
+    </div>
+</ng-template>

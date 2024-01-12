@@ -13,11 +13,11 @@ export class RequisicaoService {
 
   constructor(private http: HttpClient) {}
 
-  async get(url: string): Promise<Observable<any>> {
+   get(url: string) {
     let urlMontada = this.urlPadrao + url;
     return this.http.get(urlMontada);
   }
-  async post(url: string, body: any): Promise<Observable<any>> {
+   post(url: string, body: any) {
     let urlMontada = this.urlPadrao + url;
     return this.http.post(urlMontada, body);
   }
