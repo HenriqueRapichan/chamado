@@ -11,7 +11,7 @@
   --terceira-cor: #00669a;
   --quarta-cor: #005c87;
 }
-  
+
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
@@ -23,7 +23,7 @@
   padding: 0;
   // box-sizing: border-box;
   }
-  
+
   body,
   h1,
   h2,
@@ -33,22 +33,27 @@
     padding: 0;
   }
 
-body{
+body, .tamanho-padrao{
     max-width: 1920px;
     min-width: 300px;
     font-size: 12px;
     margin: 0 auto;
 }
 
+.offcanvas.offcanvas-start{
+  left: auto !important;
+  width: 200px !important;
+}
+
 .carregando {
   display: flex;
-  align-items: center; 
-  justify-content: center; 
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
   font-size: 20px;
   }
-  
+
   .table-primary{
     --bs-table-bg:  var(--quarta-cor) !important;
     --bs-table-color: #fff;

@@ -1,33 +1,57 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<!-- <nav class="navbar navbar-expand-lg">
+
+</nav> -->
+<nav class="navbar bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" (click)="highlightNavItem($event)" routerLink="/home" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" (click)="highlightNavItem($event)" routerLink="/home/chamados" href="#">Chamados</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" (click)="highlightNavItem($event)" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Cadastros
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" routerLink="/home/cliente" href="#">Clientes</a></li>
-            <li><a class="dropdown-item" routerLink="/home/modulo" href="#">Modulos</a></li>
-            <li><a class="dropdown-item" routerLink="/home/parceiro" href="#">Parceiros</a></li>
-            <li><a class="dropdown-item" routerLink="/home/sistema" href="#">Sistemas</a></li>
-            <li><a class="dropdown-item" routerLink="/home/status" href="#">Status</a></li>
-            <li><a class="dropdown-item" routerLink="/home/detalhamento" href="#">Tipo detalhamento</a></li>
-            <li><a class="dropdown-item" routerLink="/home/usuario" href="#">Usuário</a></li>
-          </ul>
-        </li>
-      </ul>
+    <div>
+      <a class="navbar-brand" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+        aria-controls="offcanvasExample">
+        <i class="bi bi-list"></i><!--BTN MENU -->
+      </a>
+    </div>
+    <div class="d-flex inline-block opcoes-nav">
+      <a class="nav-link" aria-current="page" href="#"><i class="bi bi-bell-fill"></i></a>
+      <a class="nav-link" routerLink="/home/chamados" href="#"><i class="bi bi-headset"></i></a>
     </div>
   </div>
 </nav>
-<router-outlet></router-outlet>
+
+<div class="offcanvas offcanvas-start tamanho-padrao" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="row g-0">
+      <div class="col-12">
+        <div class="d-grid gap-2">
+          <button type="button" class="btn btn-secondary" routerLink="/home" data-bs-dismiss="offcanvas"
+            aria-label="Close">Principal</button>
+          <button type="button" class="btn btn-secondary" routerLink="/home/chamados" data-bs-dismiss="offcanvas"
+            aria-label="Close">Chamados</button>
+          <button class="btn btn-secondary dropdown-toggle" (click)="highlightNavItem($event)" type="button"
+            data-bs-toggle="dropdown">
+            Cadastros
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/home/cliente" data-bs-dismiss="offcanvas" aria-label="Close"
+                href="#">Clientes</a></li>
+            <li><a class="dropdown-item" routerLink="/home/modulo" data-bs-dismiss="offcanvas" aria-label="Close"
+                href="#">Modulos</a></li>
+            <li><a class="dropdown-item" routerLink="/home/parceiro" data-bs-dismiss="offcanvas" aria-label="Close"
+                href="#">Parceiros</a></li>
+            <li><a class="dropdown-item" routerLink="/home/sistema" data-bs-dismiss="offcanvas" aria-label="Close"
+                href="#">Sistemas</a></li>
+            <li><a class="dropdown-item" routerLink="/home/status" data-bs-dismiss="offcanvas" aria-label="Close"
+                href="#">Status</a></li>
+            <li><a class="dropdown-item" routerLink="/home/detalhamento" data-bs-dismiss="offcanvas" aria-label="Close"
+                href="#">Tipo detalhamento</a></li>
+            <li><a class="dropdown-item" routerLink="/home/usuario" data-bs-dismiss="offcanvas" aria-label="Close"
+                href="#">Usuário</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div><router-outlet></router-outlet></div>
