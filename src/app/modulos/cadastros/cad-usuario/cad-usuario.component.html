@@ -4,8 +4,8 @@
             <thead>
                 <tr class="table-primary">
                     <th class="centralizar-btn-adicionar">
-                        <button class="btn btn-sm btn-success"><i
-                        class="bi bi-plus-lg"></i>Adicionar</button>
+                        <button class="btn btn-sm btn-success" (click)="abrirModalAdicionar()"><i
+                                class="bi bi-plus-lg"></i>Adicionar</button>
                     </th>
                     <th>
                         <label>CPF</label>
@@ -28,25 +28,204 @@
                         <input class="form-control form-control-sm mb-1">
                     </th>
                     <th>
-                        <label>Senha</label>
-                        <input class="form-control form-control-sm mb-1">
-                    </th>
-                    <th>
                         <label>Situação</label>
                         <input class="form-control form-control-sm mb-1">
                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody *ngFor="let usuario of listaUsuario; let i index">
                 <tr>
-                    <td>
-                        <button class="btn btn-primary btn-sm" title="Visualizar"></button>
+                    <td class="d-flex justify-content-around">
+                        <button class="btn btn-primary btn-sm" title="Editar"
+                            (click)="abrirModalEditar(usuario)">Editar</button>
+                        <button class="btn btn-danger btn-sm" title="Excluir"
+                            (click)="abrirModalExclusao(usuario)">Excluir</button>
                     </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td class="direita">{{usuario.cpfUsuario}}</td>
+                    <td>{{usuario.nomeUsuario}}</td>
+                    <td class="direita">{{usuario.telefone}}</td>
+                    <td>{{usuario.email}}</td>
+                    <td>{{usuario.tipoUsuario}}</td>
+                    <td>{{usuario.situacao}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+
+
+<ng-template #adicionar let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Adicionar Cliente</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-boby">
+        <div class="container">
+            <form *ngIf="usuarioForm" [formGroup]="usuarioForm" (ngSubmit)="onSubmit('adicionar')">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-12">
+                        <label for="cpfUsuario">CPF:</label>
+                        <input type="text" id="cpfUsuario" formControlName="cpfUsuario"
+                            class="form-control form-control-sm mb-1">
+                        <div class="msg-erro-form"
+                            *ngIf="usuarioForm.get('cpfUsuario')?.hasError('required') && usuarioForm.get('cpfUsuario')?.touched">
+                            CPF do usuário é obrigatório.
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-sm-12">
+                        <label for="nomeUsuario">Nome:</label>
+                        <input type="text" id="nomeUsuario" formControlName="nomeUsuario"
+                            class="form-control form-control-sm mb-1">
+                        <div class="msg-erro-form"
+                            *ngIf="usuarioForm.get('nomeUsuario')?.hasError('required') && usuarioForm.get('nomeUsuario')?.touched">
+                            Nome do cliente é obrigatório.
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <label for="telefone">Telefone:</label>
+                        <input type="text" id="telefone" formControlName="telefone"
+                            class="form-control form-control-sm mb-1">
+                        <div class="msg-erro-form"
+                            *ngIf="usuarioForm.get('telefone')?.hasError('required') && usuarioForm.get('telefone')?.touched">
+                            Telefone do usuário é obrigatório.
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" formControlName="email"
+                            class="form-control form-control-sm mb-1">
+                        <div class="msg-erro-form"
+                            *ngIf="usuarioForm.get('email')?.hasError('required') && usuarioForm.get('email')?.touched">
+                            Email do usuário é obrigatório.
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <label for="tipoUsuario">Tipo usuário:</label>
+                        <select id="tipoUsuario" formControlName="tipoUsuario" class="form-select form-select-sm mb-1">
+                            <option value="E">EXTERNO</option>
+                            <option value="I">INTERNO</option>
+                        </select>
+                        <div class="msg-erro-form"
+                            *ngIf="usuarioForm.get('tipoUsuario')?.hasError('required') && usuarioForm.get('tipoUsuario')?.touched">
+                            Tipo do usuário é obrigatório.
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <label for="situacao">Situação:</label>
+                        <select id="situacao" formControlName="situacao" class="form-select form-select-sm mb-1">
+                            <option value="A">ATIVO</option>
+                            <option value="I">INATIVO</option>
+                        </select>
+                        <div class="msg-erro-form"
+                            *ngIf="usuarioForm.get('situacao')?.hasError('required') && usuarioForm.get('situacao')?.touched">
+                            Situação é obrigatória.
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="senha">Senha:</label>
+                        <input type="password" id="senha" formControlName="senha"
+                            class="form-control form-control-sm mb-1">
+                        <div class="msg-erro-form"
+                            *ngIf="usuarioForm.get('senha')?.hasError('required') && usuarioForm.get('senha')?.touched">
+                            Senha do usuário é obrigatório.
+                        </div>
+                    </div>
+
+                    <div class="agrupamento-btn-modal">
+                        <button class="btn btn-sm btn-danger" (click)="modal.dismiss()">Cancelar</button>
+                        <button class="btn btn-sm btn-success" type="submit"
+                            [disabled]="!usuarioForm || usuarioForm.invalid">Cadastrar Cliente</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #editar let-modal>
+    <div class="container">
+        <div class="modal-header">
+            <h5 class="modal-title">Editar Cliente</h5>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-boby">
+            <form *ngIf="usuarioForm" [formGroup]="usuarioForm" (ngSubmit)="onSubmit('editar')">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-12">
+                        <label for="cpfUsuario">CPF:</label>
+                        <input type="text" id="cpfUsuario" formControlName="cpfUsuario"
+                            class="form-control form-control-sm mb-1" [disabled]="true">
+                        <div class="msg-erro-form" *ngIf="usuarioForm.get('cpfUsuario')?.hasError('required') && usuarioForm.get('cpfUsuario')?.touched">
+                            CPF do usuário é obrigatório.
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-sm-12">
+                        <label for="nomeUsuario">Nome:</label>
+                        <input type="text" id="nomeUsuario" formControlName="nomeUsuario"
+                            class="form-control form-control-sm mb-1">
+                        <div class="msg-erro-form" *ngIf="usuarioForm.get('nomeUsuario')?.hasError('required') && usuarioForm.get('nomeUsuario')?.touched">
+                            Nome do cliente é obrigatório.
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <label for="telefone">Telefone:</label>
+                        <input type="text" id="telefone" formControlName="telefone"
+                            class="form-control form-control-sm mb-1">
+                        <div class="msg-erro-form" *ngIf="usuarioForm.get('telefone')?.hasError('required') && usuarioForm.get('telefone')?.touched">
+                            Telefone do usuário é obrigatório.
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" formControlName="email"
+                            class="form-control form-control-sm mb-1">
+                        <div class="msg-erro-form" *ngIf="usuarioForm.get('email')?.hasError('required') && usuarioForm.get('email')?.touched">
+                            Email do usuário é obrigatório.
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <label for="tipoUsuario">Tipo usuário:</label>
+                        <select id="tipoUsuario" formControlName="tipoUsuario" class="form-select form-select-sm mb-1">
+                            <option value="E">EXTERNO</option>
+                            <option value="I">INTERNO</option>
+                        </select>
+                        <div class="msg-erro-form" *ngIf="usuarioForm.get('tipoUsuario')?.hasError('required') && usuarioForm.get('tipoUsuario')?.touched">
+                            Tipo usuário do usuário é obrigatório.
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <label for="situacao">Situação:</label>
+                        <select id="situacao" formControlName="situacao" class="form-select form-select-sm mb-1">
+                            <option value="A">ATIVO</option>
+                            <option value="I">INATIVO</option>
+                        </select>
+                        <div class="msg-erro-form" *ngIf="usuarioForm.get('situacao')?.hasError('required') && usuarioForm.get('situacao')?.touched">
+                            Situação é obrigatória.
+                        </div>
+                    </div>
+                    <div class="agrupamento-btn-modal">
+                        <button class="btn btn-sm btn-danger" (click)="modal.dismiss()">Cancelar</button>
+                        <button class="btn btn-sm btn-success" type="submit"
+                            [disabled]="!usuarioForm || usuarioForm.invalid">Editar Cliente</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #excluir let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Excluir Cliente</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-boby">
+        <div class="menssage-confirmacao">
+            <p>Deseja excluir esse registro?</p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger btn-sm" title="Cancelar" (click)="modal.dismiss()">Cancelar</button>
+        <button class="btn btn-primary btn-sm" title="Confirmar" (click)="removerCadCliente()">Confirmar</button>
+    </div>
+</ng-template>

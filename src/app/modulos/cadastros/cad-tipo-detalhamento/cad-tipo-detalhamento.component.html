@@ -4,8 +4,8 @@
             <thead>
                 <tr class="table-primary">
                     <th class="centralizar-btn-adicionar">
-                        <button class="btn btn-sm btn-success"><i
-                        class="bi bi-plus-lg"></i>Adicionar</button>
+                        <button class="btn btn-sm btn-success" (click)="abrirModalAdicionar()"><i
+                                class="bi bi-plus-lg"></i>Adicionar</button>
                     </th>
                     <th>
                         <label>Cód.Tipo Detalhamento</label>
@@ -17,16 +17,82 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody *ngFor="let tipo of listaTipoDetalhamento; let i index">
                 <tr>
-                    <td>
-                        <button class="btn btn-primary btn-sm" title="Visualizar"></button>
+                    <td class="d-flex justify-content-around">
+                        <button class="btn btn-primary btn-sm" (click)="abrirModalEditar(tipo)"
+                            title="Editar">Editar</button>
+                        <button class="btn btn-danger btn-sm" (click)="abrirModalExclusao(tipo)"
+                            title="Editar">Excluir</button>
                     </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{tipo.codTipoDetalhamento}}</td>
+                    <td>{{tipo.descricao}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+
+
+<ng-template #adicionar let-modal>
+    <div class="container">
+        <div class="modal-header">
+            <h5 class="modal-title">Adicionar Tipo Detalhamento</h5>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-boby">
+            <form *ngIf="tipoDetalhamentoForm" [formGroup]="tipoDetalhamentoForm" (ngSubmit)="onSubmit('adicionar')">
+                <label for="descricao">Descrição:</label>
+                <input type="text" id="descricao" formControlName="descricao" class="form-control form-control-sm mb-1">
+                <div class="msg-erro-form" *ngIf="tipoDetalhamentoForm.get('descricao')?.hasError('required') && tipoDetalhamentoForm.get('descricao')?.touched">
+                    Descrição é obrigatória.
+                </div>
+                <div class="agrupamento-btn-modal">
+                    <button class="btn btn-sm btn-danger" (click)="modal.dismiss()">Cancelar</button>
+                    <button class="btn btn-sm btn-success" type="submit"
+                        [disabled]="!tipoDetalhamentoForm || tipoDetalhamentoForm.invalid">Cadastrar
+                        Detalhamento</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #editar let-modal>
+    <div class="container">
+        <div class="modal-header">
+            <h5 class="modal-title">Editar Tipo Detalhamento</h5>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-boby">
+            <form *ngIf="tipoDetalhamentoForm" [formGroup]="tipoDetalhamentoForm" (ngSubmit)="onSubmit('editar')">
+                <label for="descricao">Descrição:</label>
+                <input type="text" id="descricao" formControlName="descricao" class="form-control form-control-sm mb-1">
+                <div class="msg-erro-form" *ngIf="tipoDetalhamentoForm.get('descricao')?.hasError('required') && tipoDetalhamentoForm.get('descricao')?.touched">
+                    Descrição é obrigatório.
+                </div>
+                <div class="agrupamento-btn-modal">
+                    <button class="btn btn-sm btn-danger" (click)="modal.dismiss()">Cancelar</button>
+                    <button  class="btn btn-sm btn-success" type="submit" [disabled]="!tipoDetalhamentoForm || tipoDetalhamentoForm.invalid">Editar
+                        Detalhamento</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #excluir let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Excluir Tipo Detalhamento</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-boby">
+        <div class="menssage-confirmacao">
+            <p>Deseja excluir esse registro?</p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger btn-sm" title="Cancelar" (click)="modal.dismiss()">Cancelar</button>
+        <button class="btn btn-primary btn-sm" title="Confirmar" (click)="removerCadSistema()">Confirmar</button>
+    </div>
+</ng-template>

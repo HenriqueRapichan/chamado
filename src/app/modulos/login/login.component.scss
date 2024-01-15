@@ -1,11 +1,31 @@
+$primeira-cor: #002c4f;
+$segunda-cor: #c9d1da;
+$terceira-cor: #00669a;
+$quarta-cor: #005c87;
+$radius: 5px;
+
+
 .grid-login{
     width: 400px;
     margin: 100px auto;
-    padding: 2%;
-    background-color: rgba($color: #002c4f, $alpha: 0.4);
-    border: 1px solid rgba($color: #005c87, $alpha: 0.4);
+    padding: 6%;
+    background-color: rgba($primeira-cor, $alpha: 0.8);
+    box-shadow: 0 0 3px 3px rgba($quarta-cor, $alpha: 0.4);
     border-radius: 5px;
+    color: #fff;
+    label{
+        font-weight: 400;
+    }
+    a{
+        text-decoration: none;
+        color: #fff;
+    }
+    font-size: 16px;
 }
 .espacamento{
-    margin: 3% 0;
+    margin: 6% 0;
+}
+
+.tamanho-btn{
+    width: 100%;
 }

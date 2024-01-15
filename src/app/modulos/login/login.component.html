@@ -1,17 +1,32 @@
-<div [hidden]="carregando" class="carregando">
+
+<div [hidden]="!carregando" class="carregando">
     <div class="spinner-border" role="status"></div>
     <span style="margin-left: 10px;">Carregando...</span>
 </div>
-
-<div [hidden]="!carregando" class="grid-login">
-    <form [formGroup]="usuarioForm" (ngSubmit)="login()" class="d-flex flex-column mt-1">
-        <label for="usuario">Usuario: </label>
-        <input id="usuario" type="text" autocomplete="off" class="form-control form-control-sm mb-1" formControlName="usuario">
-        <label for="senha">Senha: </label>
-        <input id="senha" type="password" autocomplete="off" class="form-control form-control-sm mb-1" formControlName="senha">
+<div class="fundo-login">
+<div [hidden]="carregando" class="grid-login">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div>
+          <label for="username">Usuário:</label>
+          <input type="text" class="form-control form-control-sm mb-1" id="username" formControlName="username">
+          <div class="msg-erro" *ngIf="loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched">
+           O usuário é obrigatório.
+          </div>
+        </div>
+        <div>
+          <label for="password">Senha:</label>
+          <input type="password" class="form-control form-control-sm mb-1" id="password" formControlName="password">
+          <div  class="msg-erro" *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+            A senha é obrigatório.
+          </div>
+          <div  class="msg-erro" *ngIf="loginForm.get('password')?.hasError('minlength') && loginForm.get('password')?.touched">
+            A senha deve ter pelo menos 6 caracteres.
+          </div>
+        </div>
         <div class="espacamento">
             <a href="">Esqueci a senha</a>
         </div>
-        <button type="submit" class="btn btn-primary">Entrar</button>
-    </form>
+        <button class="btn bnt-sm btn-primary tamanho-btn" type="submit" [disabled]="!loginForm.valid">Entrar</button>
+      </form>
+</div>
 </div>

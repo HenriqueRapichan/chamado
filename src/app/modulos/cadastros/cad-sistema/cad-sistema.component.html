@@ -23,7 +23,7 @@
             </thead>
             <tbody *ngFor="let sistema of listaSistema; let i index">
                 <tr>
-                    <td class="centralizar">
+                    <td class="d-flex justify-content-around">
                         <button class="btn btn-primary btn-sm" (click)="abrirModalEditar(sistema)" title="Editar">Editar</button>
                         <button class="btn btn-danger btn-sm" (click)="abrirModalExclusao(sistema)" title="Editar">Excluir</button>
                     </td>
@@ -37,6 +37,7 @@
 </div>
 
 <ng-template #adicionar let-modal>
+    <div class="container">
     <div class="modal-header">
         <h5 class="modal-title">Adicionar Sistema</h5>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
@@ -45,7 +46,7 @@
         <form *ngIf="sistemaForm" [formGroup]="sistemaForm" (ngSubmit)="onSubmit('adicionar')">
             <label for="nomeSistema">Nome do Sistema:</label>
             <input type="text" id="nomeSistema" formControlName="nomeSistema" class="form-control form-control-sm mb-1">
-            <div *ngIf="sistemaForm.get('nomeSistema')?.hasError('required')">
+            <div class="msg-erro-form" *ngIf="sistemaForm.get('nomeSistema')?.hasError('required') && sistemaForm.get('nomeSistema')?.touched">
                 Nome do sistema é obrigatório.
             </div>
 
@@ -54,12 +55,16 @@
                 <option value="A">ATIVO</option>
                 <option value="I">INATIVO</option>
             </select>
-            <div *ngIf="sistemaForm.get('situacao')?.hasError('required')">
+            <div class="msg-erro-form" *ngIf="sistemaForm.get('situacao')?.hasError('required') && sistemaForm.get('situacao')?.touched">
                 Situação é obrigatória.
             </div>
-            <button type="submit" [disabled]="!sistemaForm || sistemaForm.invalid">Cadastrar Sistema</button>
+            <div class="agrupamento-btn-modal">
+                <button class="btn btn-sm btn-danger" (click)="modal.dismiss()">Cancelar</button>
+                <button class="btn stn-sm btn-success" type="submit" [disabled]="!sistemaForm || sistemaForm.invalid">Cadastrar Sistema</button>
+            </div>
         </form>
     </div>
+</div>
 </ng-template>
 
 <ng-template #editar let-modal>
@@ -68,10 +73,11 @@
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-boby">
+        <div class="container">
         <form *ngIf="sistemaForm" [formGroup]="sistemaForm" (ngSubmit)="onSubmit('editar')">
             <label for="nomeSistema">Nome do Sistema:</label>
             <input type="text" id="nomeSistema" formControlName="nomeSistema" class="form-control form-control-sm mb-1">
-            <div *ngIf="sistemaForm.get('nomeSistema')?.hasError('required')">
+            <div class="msg-erro-form" *ngIf="sistemaForm.get('nomeSistema')?.hasError('required') && sistemaForm.get('nomeSistema')?.touched">
                 Nome do sistema é obrigatório.
             </div>
 
@@ -80,11 +86,15 @@
                 <option value="A">ATIVO</option>
                 <option value="I">INATIVO</option>
             </select>
-            <div *ngIf="sistemaForm.get('situacao')?.hasError('required')">
+            <div class="msg-erro-form" *ngIf="sistemaForm.get('situacao')?.hasError('required') && sistemaForm.get('situacao')?.touched">
                 Situação é obrigatória.
             </div>
-            <button type="submit" [disabled]="!sistemaForm || sistemaForm.invalid">Cadastrar Sistema</button>
+            <div class="agrupamento-btn-modal">
+                <button class="btn btn-sm btn-danger" (click)="modal.dismiss()">Cancelar</button>
+                <button class="btn stn-sm btn-success" type="submit" [disabled]="!sistemaForm || sistemaForm.invalid">Cadastrar Sistema</button>
+            </div>
         </form>
+    </div>
     </div>
 </ng-template>
 
@@ -99,9 +109,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <div>
             <button class="btn btn-danger btn-sm" title="Cancelar" (click)="modal.dismiss()">Cancelar</button>
             <button class="btn btn-primary btn-sm" title="Confirmar" (click)="removerCadSistema()">Confirmar</button>
-        </div>
     </div>
 </ng-template>
